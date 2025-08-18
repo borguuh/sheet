@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import NotFound from "@/pages/not-found";
 import PublicIssueViewer from "@/pages/public";
 import Home from "@/pages/home";
+import AuthPage from "@/pages/auth";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -22,8 +23,9 @@ function Router() {
   return (
     <Switch>
       <Route path="/admin">
-        {isAuthenticated ? <Home /> : <PublicIssueViewer />}
+        {isAuthenticated ? <Home /> : <AuthPage />}
       </Route>
+      <Route path="/login" component={AuthPage} />
       <Route path="/" component={PublicIssueViewer} />
       <Route component={NotFound} />
     </Switch>

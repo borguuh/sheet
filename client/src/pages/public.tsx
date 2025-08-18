@@ -32,7 +32,7 @@ export default function PublicIssueViewer() {
               </h1>
             </div>
             <Button
-              onClick={() => window.location.href = '/api/login'}
+              onClick={() => window.location.href = '/login'}
               className="inline-flex items-center bg-primary-600 hover:bg-primary-700"
             >
               <Shield className="mr-2 h-4 w-4" />
@@ -58,7 +58,7 @@ export default function PublicIssueViewer() {
             
             <div className="mt-4 flex md:mt-0 md:ml-4">
               <Button
-                onClick={() => window.location.href = '/api/login'}
+                onClick={() => window.location.href = '/login'}
                 variant="outline"
                 className="inline-flex items-center"
               >

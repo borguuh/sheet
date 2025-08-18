@@ -34,7 +34,7 @@ export default function Home() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/api/login";
+        window.location.href = "/login";
       }, 1000);
       return;
     }
@@ -66,7 +66,7 @@ export default function Home() {
           variant: "destructive",
         });
         setTimeout(() => {
-          window.location.href = "/api/login";
+          window.location.href = "/login";
         }, 500);
         return;
       }
@@ -98,7 +98,7 @@ export default function Home() {
           variant: "destructive",
         });
         setTimeout(() => {
-          window.location.href = "/api/login";
+          window.location.href = "/login";
         }, 500);
         return;
       }
@@ -129,7 +129,7 @@ export default function Home() {
           variant: "destructive",
         });
         setTimeout(() => {
-          window.location.href = "/api/login";
+          window.location.href = "/login";
         }, 500);
         return;
       }
@@ -166,7 +166,15 @@ export default function Home() {
               
               <Button
                 variant="outline"
-                onClick={() => window.location.href = '/api/logout'}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("user");
+                  toast({
+                    title: "Logged Out",
+                    description: "You have been successfully logged out.",
+                  });
+                  window.location.href = "/";
+                }}
                 className="inline-flex items-center"
               >
                 <LogOut className="mr-2 h-4 w-4" />
