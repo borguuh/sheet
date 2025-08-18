@@ -24,7 +24,29 @@ export default function Home() {
     type: "",
     search: "",
   });
-
+  const { data: issues = [], isLoading } = useQuery<Issue[]>({
+    queryKey: ["/api/issues", filters.status, filters.type, filters.search],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.status) params.append('status', filters.status);
+      if (filters.type) params.append('type', filters.type);
+      if (filters.search) params.append('search', filters.search);
+      
+      const url = `/api/issues${params.toString() ? `?${params.toString()}` : ''}`;
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`${response.status}: ${await response.text()}`);
+      }
+      
+      return response.json();
+    },
+    retry: false,
+  });
   // Redirect to login if not authenticated
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -39,11 +61,6 @@ export default function Home() {
       return;
     }
   }, [isAuthenticated, isLoading, toast]);
-
-  const { data: issues = [], isLoading } = useQuery<Issue[]>({
-    queryKey: ["/api/issues", filters],
-    retry: false,
-  });
 
   const createIssueMutation = useMutation({
     mutationFn: async (issue: InsertIssue) => {

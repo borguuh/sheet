@@ -15,7 +15,22 @@ export default function PublicIssueViewer() {
   });
 
   const { data: issues = [], isLoading } = useQuery<Issue[]>({
-    queryKey: ["/api/issues", filters],
+    queryKey: ["/api/issues", filters.status, filters.type, filters.search],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.status) params.append('status', filters.status);
+      if (filters.type) params.append('type', filters.type);
+      if (filters.search) params.append('search', filters.search);
+      
+      const url = `/api/issues${params.toString() ? `?${params.toString()}` : ''}`;
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`${response.status}: ${await response.text()}`);
+      }
+      
+      return response.json();
+    },
     retry: false,
   });
 
