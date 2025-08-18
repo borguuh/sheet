@@ -1,4 +1,7 @@
 import 'dotenv/config';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
@@ -55,7 +58,8 @@ app.use((req, res, next) => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    serveStatic(app);
+    const staticPath = path.join(__dirname, '../../dist/client');
+  serveStatic(app, staticPath)
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
