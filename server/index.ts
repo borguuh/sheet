@@ -58,7 +58,7 @@ app.use((req, res, next) => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    const staticPath = path.join(__dirname, '../../dist/client');
+    const staticPath = path.join(__dirname, '../dist/client');
   serveStatic(app, staticPath)
   }
 
