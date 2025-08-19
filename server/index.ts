@@ -61,6 +61,13 @@ app.use((req, res, next) => {
     const staticPath = path.join(__dirname, '../dist');
   serveStatic(app, staticPath)
   }
+  // In production mode:
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../dist/client')))
+  app.get('*', (_, res) => {
+    res.sendFile(path.join(__dirname, '../dist/client/index.html'))
+  })
+}
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
   // Other ports are firewalled. Default to 5000 if not specified.

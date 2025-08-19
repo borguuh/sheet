@@ -26,9 +26,9 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "attached_assets"),
     },
   },
-  root: path.resolve(__dirname, "client"),
+  root: path.resolve(__dirname, "client"), // Explicit root
   build: {
-    outDir: "./dist", // Vercel expects static files in root `/dist`
+    outDir: path.resolve(__dirname, "dist/client"), // Absolute path
     emptyOutDir: true,
   },
   server: {
