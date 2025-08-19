@@ -28,7 +28,7 @@ export default defineConfig({
   },
   root: path.resolve(__dirname, "client"),
   build: {
-    outDir: path.resolve(__dirname, "../dist/client"), // Ensure this matches Vercel's expected path
+    outDir: "./dist", // Vercel expects static files in root `/dist`
     emptyOutDir: true,
   },
   server: {
